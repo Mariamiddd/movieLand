@@ -95,6 +95,7 @@ export class MovieCardComponent {
   private checkAuth(): boolean {
     if (!this.authService.isAuthenticated()) {
       this.notificationService.show(
+        'Authentication',
         'Please sign in to add movies to your lists.',
         'info',
         {

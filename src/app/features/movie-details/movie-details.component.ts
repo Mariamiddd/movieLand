@@ -93,11 +93,11 @@ export class MovieDetailsComponent implements OnInit {
           this.loadTrailer(data.id, type);
           this.loadCredits(data.id, type);
         }
-        setTimeout(() => this.isLoading.set(false), 750);
+        setTimeout(() => this.isLoading.set(false), 350);
       },
       error: () => {
         this.errorMessage.set('Failed to load details. Please try again.');
-        setTimeout(() => this.isLoading.set(false), 750);
+        setTimeout(() => this.isLoading.set(false), 350);
       }
     });
   }
@@ -145,7 +145,8 @@ export class MovieDetailsComponent implements OnInit {
 
       if (success) {
         this.notificationService.show(
-          `🎉 Purchase successful! You can now watch "${m.title || m.name}"`,
+          'Purchase Successful',
+          `You can now watch "${m.title || m.name}"`,
           'success'
         );
         this.showTrailer.set(true);
@@ -213,6 +214,7 @@ export class MovieDetailsComponent implements OnInit {
   private checkAuth(action: string): boolean {
     if (!this.authService.isAuthenticated()) {
       this.notificationService.show(
+        'Authentication Required',
         `Please sign in to ${action}.`,
         'info',
         {

@@ -5,6 +5,7 @@ import { LayoutService } from '../../../core/services/layout.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { SearchService } from '../../../core/services/search.service';
 import { TmdbService, Movie } from '../../../core/services/tmdb.service';
+import { ReportService } from '../../../core/services/report.service';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, Subject, switchMap, of } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -23,6 +24,7 @@ export class TopbarComponent {
   readonly notificationService = inject(NotificationService);
   readonly searchService = inject(SearchService);
   readonly tmdb = inject(TmdbService);
+  readonly reportService = inject(ReportService);
   private readonly el = inject(ElementRef);
   private readonly router = inject(Router);
 

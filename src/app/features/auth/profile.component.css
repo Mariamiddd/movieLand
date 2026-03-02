@@ -389,6 +389,19 @@
     }
 }
 
+@media (max-width: 600px) {
+    .reply-box {
+        gap: 8px !important;
+        padding: 4px 12px !important;
+    }
+
+    .reply-box .btn-figma {
+        height: 28px !important;
+        padding: 0 12px !important;
+        font-size: 0.65rem !important;
+    }
+}
+
 /* Reporting System Styles */
 .l-footer {
     display: flex;
@@ -484,9 +497,9 @@
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    z-index: 2000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -543,48 +556,89 @@
 }
 
 .report-entry {
-    padding: 24px;
+    padding: 0;
+    overflow: hidden;
 }
 
-.entry-header {
+.pane-header-actions-profile {
+    flex-shrink: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    padding: 16px 24px;
+    background: var(--chat-header-background);
+    border-bottom: 2px solid var(--bg-secondary);
 }
 
-.entry-title {
-    font-weight: 700;
-    color: var(--text-highlight);
+.header-main-meta-profile h4 {
+    font-size: 0.75rem;
+    color: var(--header-accent);
+    margin: 0;
+    opacity: 0.5;
 }
 
-
-.entry-status {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 2px;
-    color: var(--border-analog);
-    background-color: var(--chat-header-background);
-    border-radius: 8px;
+.report-type-profile {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--bg-main);
+    margin-top: 2px;
+    font-family: var(--font-serif);
 }
 
-.entry-reason {
+.details-strip-profile {
+    flex-shrink: 0;
+    padding: 10px 24px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 0.8rem;
-    color: var(--border-analog);
-    margin-bottom: 20px;
+    color: var(--text-analog);
 }
 
-.chat-bubbles {
+.details-strip-profile p {
+    margin: 0;
+}
+
+.status-pill-profile {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.status-pill-profile.pending {
+    background: #fff;
+    color: var(--text-highlight);
+    border: 1px solid var(--text-highlight);
+}
+
+.status-pill-profile.in-progress {
+    background: var(--bg-secondary);
+    color: var(--header-accent);
+}
+
+.status-pill-profile.resolved {
+    background: #e6fffa;
+    color: #234e52;
+}
+
+.profile-chat-logs {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
     max-height: 400px;
     overflow-y: auto;
+    background: var(--bg-main);
+}
+
+.chat-system-minimal-profile {
+    padding: 24px;
+    background: var(--bg-main);
+}
+
+.no-padding {
+    padding: 0 !important;
 }
 
 .bubble-wrapper {
@@ -611,6 +665,7 @@
     position: relative;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     width: fit-content;
+    font-family: var(--font-chat);
 }
 
 .bubble-wrapper.me .bubble {
@@ -649,7 +704,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background: var(--bg-main);
+    background: var(--chat-header-background);
     padding: 6px 16px;
     border-radius: 40px;
     border: 2px solid var(--bg-secondary);
@@ -663,8 +718,9 @@
     border: none;
     padding: 8px 4px;
     font-size: 0.9rem;
-    color: var(--text-analog);
+    color: var(--border-analog);
     outline: none;
+    font-family: var(--font-chat);
 }
 
 .reply-box .btn-figma {
@@ -746,4 +802,24 @@
     padding: 1px 5px;
     border-radius: 10px;
     margin-left: 8px;
+}
+
+.convo-closed-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px dashed var(--border-analog);
+    border-radius: 12px;
+    color: var(--border-analog);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    margin-top: 16px;
+    opacity: 0.8;
+}
+
+.convo-closed-user svg {
+    opacity: 0.6;
 }

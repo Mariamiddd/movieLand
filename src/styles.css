@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
     /* The Imperial Vault Palette */
@@ -18,9 +21,12 @@
     --chat-header-background: #c1ad75;
 
     --font-mono: 'Space Mono', monospace;
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: 'Roboto', sans-serif;
+    --font-chat: 'Montserrat', sans-serif;
+    --font-serif: 'Playfair Display', serif;
 
     --radius-analog: 18px;
+
     --grid-gap: 24px;
     --sidebar-width: 0px;
 
@@ -29,6 +35,39 @@
     --bg-card: var(--bg-secondary);
     --text-main: var(--text-analog);
     --border-analog: #3d1b1b;
+}
+
+.roboto-main {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+
+.montserrat-chat {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.playfair-heading {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-serif);
+    font-weight: 700;
 }
 
 * {
@@ -319,9 +358,9 @@ button {
 }
 
 .btn-outline-figma {
-    background: transparent;
+    background-color: var(--border-analog);
     border: 1.5px solid var(--text-highlight);
-    color: var(--text-highlight);
+    color: var(--bg-main);
     border-radius: 20px;
     font-weight: 800;
     letter-spacing: 0.05em;

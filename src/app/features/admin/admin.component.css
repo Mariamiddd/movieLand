@@ -59,6 +59,7 @@
     letter-spacing: 0.1em;
     opacity: 0.9;
     white-space: nowrap;
+    font-family: var(--font-serif);
 }
 
 .admin-identity {
@@ -207,6 +208,7 @@
     letter-spacing: 0.05em;
     color: var(--text-highlight);
     margin: 0;
+    font-family: var(--font-serif);
 }
 
 /* Archival Table */
@@ -214,6 +216,7 @@
 
 .report-header-mini {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 4px;
@@ -227,6 +230,7 @@
     color: #fff;
     border-radius: 2px;
     letter-spacing: 0.05em;
+    margin-top: 2px;
 }
 
 .mini-report-card.selected .mini-badge {
@@ -245,6 +249,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 20px;
     background: rgba(0, 0, 0, 0.02);
     border: 1px dashed rgba(0, 0, 0, 0.1);
@@ -254,6 +259,9 @@
     font-size: 0.7rem;
     font-weight: 800;
     color: var(--header-accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .report-desc {
@@ -353,7 +361,7 @@
 }
 
 .mini-report-card.selected {
-    background: #fff;
+    background: var(--bg-secondary);
     border-left: 4px solid var(--header-accent);
     box-shadow: 10px 0 20px rgba(0, 0, 0, 0.05);
 }
@@ -395,6 +403,7 @@
     font-weight: 800;
     color: var(--bg-main);
     margin-top: 2px;
+    font-family: var(--font-serif);
 }
 
 .messenger-workspace {
@@ -452,6 +461,7 @@
     font-size: 0.9rem;
     padding: 6px;
     background: transparent;
+    font-family: var(--font-chat);
 }
 
 .send-icon-btn {
@@ -564,6 +574,7 @@
     border-radius: 18px;
     position: relative;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    font-family: var(--font-chat);
 }
 
 .admin-wrapper .msg-bubble {
@@ -622,6 +633,24 @@
 @keyframes blinker {
     50% {
         opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .modern-input-row {
+        gap: 8px !important;
+        padding: 6px 12px !important;
+    }
+
+    .send-icon-btn {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .send-icon-btn svg {
+        width: 14px !important;
+        height: 14px !important;
+        margin-left: -1px !important;
     }
 }
 

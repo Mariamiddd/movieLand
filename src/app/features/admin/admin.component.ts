@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, effect } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { ReportService, Report } from '../../core/services/report.service';
@@ -32,10 +32,18 @@ export class AdminComponent implements OnInit {
 
   selectReport(id: string) {
     this.selectedReportId.set(id === this.selectedReportId() ? null : id);
+    if (id) this.scrollToBottom();
+  }
+
+  constructor() {
+    effect(() => {
+      this.reportService.messages();
+      this.scrollToBottom();
+    });
   }
 
   ngOnInit() {
-    this.title.setTitle('Admin | Movieland');
+    this.title.setTitle('Admin | movieLand');
   }
 
   startWorking(report: Report) {
@@ -48,7 +56,7 @@ export class AdminComponent implements OnInit {
       message: "Hello! We've received your report and our support team is currently looking into it. We'll let you know as soon as it's fixed!"
     });
 
-    this.notificationService.show(`Status updated: Working on it`, 'info');
+    this.notificationService.show('Status Updated', 'Working on it', 'info');
   }
 
   resolveReport(report: Report) {
@@ -58,10 +66,10 @@ export class AdminComponent implements OnInit {
       senderId: 'admin',
       receiverId: report.userId,
       reportId: report.id,
-      message: "Great news! This problem has been resolved. If you need anything else, just open a new report! Have a cinematic day! 🍿"
+      message: "Great news! This problem has been resolved. If you need anything else, just open a new report! Have a cinematic day!"
     });
 
-    this.notificationService.show(`Report marked as resolved`, 'success');
+    this.notificationService.show('Resolved', 'Report marked as resolved', 'success');
   }
 
   getMessages(reportId: string) {
@@ -82,14 +90,24 @@ export class AdminComponent implements OnInit {
     });
 
     this.chatInputs[report.id] = '';
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom() {
+    setTimeout(() => {
+      const chatContainers = document.querySelectorAll('.chat-logs-modern');
+      chatContainers.forEach(container => {
+        container.scrollTop = container.scrollHeight;
+      });
+    }, 100);
   }
 
   deleteMessage(messageId: string) {
     this.reportService.deleteMessage(messageId);
-    this.notificationService.show('Message deleted', 'info');
+    this.notificationService.show('Success', 'Message deleted', 'info');
   }
 
   editMovie(movie: any) {
-    this.notificationService.show(`Catalog edit for "${movie.movieTitle}" is currently under maintenance.`, 'info');
+    this.notificationService.show('Maintenance', `Catalog edit for "${movie.movieTitle}" is currently under maintenance.`, 'info');
   }
 }

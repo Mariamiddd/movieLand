@@ -137,21 +137,27 @@ export class HomeComponent implements OnInit {
     request$.subscribe({
       next: (data) => {
         if (append) {
-          this.movies.update(prev => [...prev, ...data]);
+          this.movies.update(prev => {
+            const combined = [...prev, ...data];
+            // Deduplicate by ID
+            return Array.from(new Map(combined.map(movie => [movie.id, movie])).values());
+          });
         } else {
-          this.movies.set(data);
+          // Even for a single page, ensure uniqueness
+          const unique = Array.from(new Map(data.map(movie => [movie.id, movie])).values());
+          this.movies.set(unique);
         }
         setTimeout(() => {
           this.isLoading.set(false);
           this.isLoadingMore.set(false);
-        }, 750);
+        }, 350);
       },
       error: () => {
         this.errorMessage.set('Failed to load content. Please check your connection.');
         setTimeout(() => {
           this.isLoading.set(false);
           this.isLoadingMore.set(false);
-        }, 750);
+        }, 350);
       }
     });
   }

@@ -39,5 +39,5 @@
 }
 
 .loader__film-img {
-    animation: rotate 1.5s linear infinite;
+    animation: rotate 0.75s linear infinite;
 }

@@ -35,6 +35,13 @@ export class MoviesComponent implements OnInit {
   errorMessage = signal<string | null>(null);
   currentPage = signal(1);
 
+  // Computed signal to ensure grid always has full rows (multiples of 6)
+  gridMovies = computed(() => {
+    const list = this.movies();
+    const remainder = list.length % 6;
+    return remainder === 0 ? list : list.slice(0, list.length - remainder);
+  });
+
   // Static data
   years = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
   languages = [
@@ -112,25 +119,32 @@ export class MoviesComponent implements OnInit {
     ];
 
     forkJoin(requests).pipe(
-      map(results => results.flat())
+      map(results => {
+        const flat = results.flat();
+        // Deduplicate items by ID
+        return Array.from(new Map(flat.map(movie => [movie.id, movie])).values());
+      })
     ).subscribe({
       next: (data) => {
         if (append) {
-          this.movies.update(prev => [...prev, ...data]);
+          this.movies.update(prev => {
+            const combined = [...prev, ...data];
+            return Array.from(new Map(combined.map(movie => [movie.id, movie])).values());
+          });
         } else {
           this.movies.set(data);
         }
         setTimeout(() => {
           this.isLoading.set(false);
           this.isLoadingMore.set(false);
-        }, 750);
+        }, 350);
       },
       error: () => {
         this.errorMessage.set('Failed to load movies. Please try again.');
         setTimeout(() => {
           this.isLoading.set(false);
           this.isLoadingMore.set(false);
-        }, 750);
+        }, 350);
       }
     });
   }

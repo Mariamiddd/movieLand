@@ -1,11 +1,12 @@
 import { Injectable, signal, computed } from '@angular/core';
 
 export interface Notification {
+    title: string;
     message: string;
     type: 'info' | 'success' | 'error';
     action?: {
-        label: string,
-        callback: () => void
+        label: string;
+        callback: () => void;
     };
 }
 
@@ -61,12 +62,13 @@ export class NotificationService {
         return this.currentUserId ? `inbox_${this.currentUserId}` : 'user_inbox';
     }
 
-    show(message: string, type: 'info' | 'success' | 'error' = 'info', action?: { label: string, callback: () => void }) {
-        this.currentNotification.set({ message, type, action });
+    show(title: string, message: string, type: 'info' | 'success' | 'error' = 'info', action?: { label: string; callback: () => void }) {
+        this.currentNotification.set({ title, message, type, action });
 
         if (!action) {
             setTimeout(() => {
-                if (this.currentNotification()?.message === message) {
+                const current = this.currentNotification();
+                if (current && current.title === title && current.message === message) {
                     this.clear();
                 }
             }, 5000);
@@ -92,7 +94,7 @@ export class NotificationService {
         this.saveInbox();
 
         // Also show a toast notification for immediate feedback
-        this.show(`${title}: ${message}`, type === 'purchase' || type === 'favorite' ? 'success' : 'info');
+        this.show(title, message, type === 'purchase' || type === 'favorite' ? 'success' : 'info');
     }
 
     /**
@@ -127,7 +129,7 @@ export class NotificationService {
         // If the current user is the recipient, update the signal
         if (this.currentUserId === userId) {
             this.inboxSignal.set(items.map(i => ({ ...i, timestamp: new Date(i.timestamp) })));
-            this.show(`${title}: ${message}`, 'info');
+            this.show(title, message, 'info');
         }
     }
 

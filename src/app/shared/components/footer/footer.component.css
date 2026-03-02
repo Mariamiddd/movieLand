@@ -38,15 +38,15 @@
 }
 
 .logo-text {
-    font-family: var(--font-mono);
+    font-family: var(--font-serif);
     font-size: 1.5rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-highlight);
     letter-spacing: 0.1em;
 }
 
 .logo-text span {
-    color: var(--text-highlight);
+    color: var(--bg-secondary);
 }
 
 .footer-tagline {
@@ -85,8 +85,8 @@
 }
 
 .footer-group a:hover {
-    color: #fff;
-    transform: translateX(4px);
+    color: var(--text-highlight);
+    font-weight: 700;
 }
 
 .footer-bottom {

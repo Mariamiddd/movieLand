@@ -39,6 +39,9 @@
                 <line x1="16" y1="11" x2="22" y2="11"></line>
             </svg>
             ADMIN
+            @if (reportService.pendingCount() > 0) {
+            <span class="badge-mini-admin">{{ reportService.pendingCount() }}</span>
+            }
         </a>
         }
     </nav>

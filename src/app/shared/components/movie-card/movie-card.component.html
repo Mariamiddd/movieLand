@@ -18,10 +18,10 @@
         </div>
         <div class="mobile-actions">
             <button class="mob-action-btn" [class.active]="isInWishlist()" (click)="toggleWishlist($event)">
-                {{ isInWishlist() ? '✔ LIST' : '+ LIST' }}
+                {{ isInWishlist() ? '✔ WISHLIST' : '+ WISHLIST' }}
             </button>
             <button class="mob-action-btn" [class.active]="isInFavorites()" (click)="toggleFavorite($event)">
-                {{ isInFavorites() ? '❤ FAV' : '+ FAV' }}
+                {{ isInFavorites() ? '❤ FAVORITES' : '+ FAVORITES' }}
             </button>
         </div>
     </div>

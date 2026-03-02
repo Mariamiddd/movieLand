@@ -35,6 +35,7 @@ export class ReportService {
 
     reports = computed(() => this.reportsSignal());
     messages = computed(() => this.messagesSignal());
+    pendingCount = computed(() => this.reportsSignal().filter(r => r.status === 'pending').length);
 
     constructor() {
         this.loadData();
@@ -127,7 +128,7 @@ export class ReportService {
             timestamp: new Date(),
             read: false
         };
-        this.messagesSignal.update(m => [newMessage, ...m]);
+        this.messagesSignal.update(m => [...m, newMessage]);
 
         // If admin sends a message, notify the user
         if (message.senderId === 'admin') {

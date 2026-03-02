@@ -1,16 +1,45 @@
 @if (notificationService.currentNotification(); as n) {
-<div class="notification-container" [class]="n.type">
-    <div class="message-content">
-        <span class="icon">{{ getIcon(n.type) }}</span>
-        <p>{{ n.message }}</p>
-    </div>
-    <div class="actions">
-        @if (n.action) {
-        <button class="action-btn" (click)="n.action.callback(); notificationService.clear()">
-            {{ n.action.label }}
-        </button>
-        }
-        <button class="close-btn" (click)="notificationService.clear()">✕</button>
+<div class="notif-wrapper-outer sticky-bottom-right z-toast">
+    <div class="notif-modern-card" [class]="n.type">
+        <div class="notif-body-left">
+            <div class="notif-status-icon-box" [class]="n.type">
+                @if (n.type === 'success') {
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="notif-svg-main">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+                </svg>
+                } @else if (n.type === 'error') {
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="notif-svg-main">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+                </svg>
+                } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="notif-svg-main">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m11.25 11.25.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+                }
+            </div>
+            <div class="notif-text-block">
+                <p class="notif-title-label">{{ n.title }}</p>
+                <p class="notif-message-text">{{ n.message }}</p>
+            </div>
+        </div>
+
+        <div class="notif-controls-right">
+            @if (n.action) {
+            <button class="notif-action-btn-modern" (click)="n.action.callback(); notificationService.clear()">
+                {{ n.action.label }}
+            </button>
+            }
+            <button class="notif-modern-close-btn" (click)="notificationService.clear()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="notif-svg-close">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
     </div>
 </div>
 }

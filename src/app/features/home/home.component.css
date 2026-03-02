@@ -68,6 +68,10 @@
   gap: 20px;
   padding-bottom: 16px;
   margin-bottom: 32px;
+  max-width: 1320px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ws-header-top {

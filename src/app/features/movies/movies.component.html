@@ -45,7 +45,7 @@
         }
 
         <div class="ws-grid-inner">
-            @for (movie of movies(); track movie.id) {
+            @for (movie of gridMovies(); track movie.id) {
             <app-movie-card [movie]="movie" type="movie"></app-movie-card>
             }
         </div>

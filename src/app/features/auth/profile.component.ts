@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, effect } from '@angular/core';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService, User } from '../../core/services/auth.service';
@@ -58,6 +58,13 @@ export class ProfileComponent {
   myReports = computed(() => this.reportService.reports().filter(r => r.userId === this.user()?.id));
   unreadMessages = computed(() => this.reportService.messages().filter(m => m.receiverId === this.user()?.id && !m.read).length);
 
+  constructor() {
+    effect(() => {
+      this.reportService.messages();
+      this.scrollToBottom();
+    });
+  }
+
   selectedPurchase = signal<any | null>(null);
   reportForm = { reason: 'Movie isn\'t playing', details: '' };
   chatInputs: Record<string, string> = {};
@@ -83,6 +90,7 @@ export class ProfileComponent {
       const tab = params['tab'];
       if (tab && ['purchases', 'watchlist', 'favorites', 'settings', 'messages'].includes(tab)) {
         this.activeTab.set(tab as any);
+        if (tab === 'messages') this.scrollToBottom();
       }
     });
 
@@ -292,12 +300,14 @@ export class ProfileComponent {
       details: this.reportForm.details
     });
 
-    this.notificationService.show('Report submitted successfully. We will review it shortly.', 'success');
+    this.notificationService.show('Report Submitted', 'We will review it shortly.', 'success');
     this.selectedPurchase.set(null);
   }
 
   getMessages(reportId: string) {
-    return this.reportService.messages().filter(m => m.reportId === reportId);
+    return this.reportService.messages()
+      .filter(m => m.reportId === reportId)
+      .sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   }
 
   sendReply(report: any) {
@@ -312,11 +322,21 @@ export class ProfileComponent {
     });
 
     this.chatInputs[report.id] = '';
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom() {
+    setTimeout(() => {
+      const chatContainers = document.querySelectorAll('.chat-bubbles');
+      chatContainers.forEach(container => {
+        container.scrollTop = container.scrollHeight;
+      });
+    }, 100);
   }
 
   deleteMessage(messageId: string) {
     this.reportService.deleteMessage(messageId);
-    this.notificationService.show('Message deleted', 'info');
+    this.notificationService.show('Success', 'Message deleted', 'info');
   }
 
   removePurchase(movieId: number) {
@@ -325,7 +345,7 @@ export class ProfileComponent {
 
     if (confirm(`Remove "${purchase.movieTitle}" from your library? This action cannot be undone.`)) {
       this.purchaseService.removePurchase(movieId);
-      this.notificationService.show('Movie removed from library', 'success');
+      this.notificationService.show('Success', 'Movie removed from library', 'success');
     }
   }
 }

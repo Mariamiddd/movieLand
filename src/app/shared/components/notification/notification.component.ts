@@ -10,13 +10,4 @@ import { NotificationService } from '../../../core/services/notification.service
 })
 export class NotificationComponent {
   readonly notificationService = inject(NotificationService);
-
-  getIcon(type: string): string {
-    switch (type) {
-      case 'success': return '✅';
-      case 'error': return '❌';
-      case 'info': return 'ℹ️';
-      default: return '🔔';
-    }
-  }
 }

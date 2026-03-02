@@ -91,24 +91,25 @@
             <!-- Right Column -->
             <div class="details-right">
                 <div class="imdb-action-panel card-flat">
-                    <button class="btn-figma btn-outline-figma" (click)="toggleWishlist()"
-                        [class.active]="isInWishlist()">
-                        @if (isInWishlist()) {
-                        <span style="color: var(--text-highlight); margin-right: 8px;">✔</span> In Library
-                        } @else {
-                        <span style="margin-right: 8px;">+</span> Add to Library
-                        }
-                    </button>
+                    <div class="action-row-figma">
+                        <button class="btn-figma btn-outline-figma" (click)="toggleWishlist()"
+                            [class.active]="isInWishlist()">
+                            @if (isInWishlist()) {
+                            Added to library
+                            } @else {
+                            Add to wishlist
+                            }
+                        </button>
 
-                    <button class="btn-figma btn-outline-figma" (click)="toggleFavorite()"
-                        [class.active]="isInFavorites()">
-                        <span style="margin-right: 8px;">★</span> {{ isInFavorites() ? 'Favorited' : 'Mark as Favorite'
-                        }}
-                    </button>
+                        <button class="btn-figma btn-outline-figma" (click)="toggleFavorite()"
+                            [class.active]="isInFavorites()">
+                            {{ isInFavorites() ? 'Added to favourites' : 'Add to
+                            favourites' }}
+                        </button>
+                    </div>
 
                     <div class="rating-blocks">
                         <div class="rating-block">
-                            <span class="rating-star">★</span>
                             <div class="rating-text">
                                 <span class="score">{{ m.vote_average | number:'1.1-1' }}<span
                                         class="out-of">/10</span></span>

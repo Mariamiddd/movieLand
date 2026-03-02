@@ -37,12 +37,13 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: var(--text-highlight);
-    letter-spacing: -0.05em;
+    letter-spacing: 0.1em;
     text-decoration: none;
     white-space: nowrap;
+    font-family: var(--font-serif);
 }
 
 .logo-icon {
@@ -114,10 +115,29 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: all 0.2s ease;
+    position: relative;
 }
 
 .admin-link svg {
     flex-shrink: 0;
+}
+
+.badge-mini-admin {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--bg-secondary);
+    color: var(--text-highlight);
+    font-size: 0.6rem;
+    font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
 }
 
 .admin-link:hover,
